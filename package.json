@@ -26,6 +26,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "packageManager": "pnpm@9.15.3",
   "engines": {
     "node": ">=20"
