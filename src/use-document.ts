@@ -6,9 +6,9 @@ import {
   useDocumentOnce as useDocumentOnce_orig,
 } from "react-firebase-hooks/firestore";
 import { makeMutableDocument } from "./helpers";
-import type { FsDocument } from "./types.js";
+import type { FsDocument, UnknownObject } from "./types.js";
 
-export function useDocument<T extends Record<string, unknown>>(
+export function useDocument<T extends UnknownObject>(
   collectionRef: CollectionReference<T>,
   documentId?: string
 ): [FsDocument<T> | undefined, boolean] {
@@ -28,7 +28,7 @@ export function useDocument<T extends Record<string, unknown>>(
 }
 
 /** A version of useDocument that doesn't throw when the document doesn't exist. */
-export function useDocumentMaybe<T extends Record<string, unknown>>(
+export function useDocumentMaybe<T extends UnknownObject>(
   collectionRef: CollectionReference<T>,
   documentId?: string
 ): [FsDocument<T> | undefined, boolean] {
@@ -43,7 +43,7 @@ export function useDocumentMaybe<T extends Record<string, unknown>>(
   return [document, isLoading];
 }
 
-export function useDocumentData<T extends Record<string, unknown>>(
+export function useDocumentData<T extends UnknownObject>(
   collectionRef: CollectionReference<T>,
   documentId?: string
 ): [T | undefined, boolean] {
@@ -52,7 +52,7 @@ export function useDocumentData<T extends Record<string, unknown>>(
   return [document?.data, isLoading];
 }
 
-export function useDocumentOnce<T extends Record<string, unknown>>(
+export function useDocumentOnce<T extends UnknownObject>(
   collectionRef: CollectionReference<T>,
   documentId?: string
 ): [FsDocument<T> | undefined, boolean] {

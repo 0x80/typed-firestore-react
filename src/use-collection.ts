@@ -7,10 +7,10 @@ import {
 import { useMemo } from "react";
 import { useCollection as useCollection_orig } from "react-firebase-hooks/firestore";
 import { makeMutableDocument } from "./helpers";
-import type { FsDocument } from "./types";
+import type { FsDocument, UnknownObject } from "./types";
 import { isDefined } from "./utils";
 
-export function useCollection<T extends Record<string, unknown>>(
+export function useCollection<T extends UnknownObject>(
   collectionRef: CollectionReference<T>,
   ...queryConstraints: (QueryConstraint | undefined)[]
 ): [FsDocument<T>[] | undefined, boolean] {

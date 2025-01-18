@@ -6,8 +6,9 @@ import {
 } from "firebase/firestore";
 import { invariant } from "~/utils";
 import { makeFsDocument, makeMutableDocument } from "./helpers";
+import type { UnknownObject } from "./types";
 
-export async function getDocument<T extends Record<string, unknown>>(
+export async function getDocument<T extends UnknownObject>(
   collectionRef: CollectionReference<T>,
   documentId: string
 ) {
@@ -21,7 +22,7 @@ export async function getDocument<T extends Record<string, unknown>>(
   return makeMutableDocument(snapshot);
 }
 
-export async function getDocumentData<T extends Record<string, unknown>>(
+export async function getDocumentData<T extends UnknownObject>(
   collectionRef: CollectionReference<T>,
   documentId: string,
   _bla: string
@@ -36,7 +37,7 @@ export async function getDocumentData<T extends Record<string, unknown>>(
   return docSnap.data() as T;
 }
 
-export async function getDocumentMaybe<T extends Record<string, unknown>>(
+export async function getDocumentMaybe<T extends UnknownObject>(
   collectionRef: CollectionReference<T>,
   documentId: string
 ) {
@@ -47,7 +48,7 @@ export async function getDocumentMaybe<T extends Record<string, unknown>>(
   return makeFsDocument(snapshot);
 }
 
-export async function getDocumentDataMaybe<T extends Record<string, unknown>>(
+export async function getDocumentDataMaybe<T extends UnknownObject>(
   collectionRef: CollectionReference<T>,
   documentId: string
 ) {
@@ -58,9 +59,7 @@ export async function getDocumentDataMaybe<T extends Record<string, unknown>>(
   return snapshot.data() as T;
 }
 
-export async function getDocumentFromTransaction<
-  T extends Record<string, unknown>,
->(
+export async function getDocumentFromTransaction<T extends UnknownObject>(
   transaction: Transaction,
   collectionRef: CollectionReference<T>,
   documentId: string
@@ -75,9 +74,7 @@ export async function getDocumentFromTransaction<
   return makeFsDocument(snapshot);
 }
 
-export async function getDocumentFromTransactionMaybe<
-  T extends Record<string, unknown>,
->(
+export async function getDocumentFromTransactionMaybe<T extends UnknownObject>(
   transaction: Transaction,
   collectionRef: CollectionReference<T>,
   documentId: string
