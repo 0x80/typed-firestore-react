@@ -1,5 +1,5 @@
-import { invariant } from "./invariant.js";
-import { isEmpty } from "./is-empty.js";
+import { invariant } from "./invariant";
+import { isEmpty } from "./is-empty";
 
 export function chunk<T>(array: T[], size: number): T[][] {
   invariant(size > 0, "Size must be greater than 0");
@@ -12,7 +12,7 @@ export function chunk<T>(array: T[], size: number): T[][] {
 
   let index = 0;
   let resIndex = 0;
-  const result = new Array(Math.ceil(length / size));
+  const result: T[][] = Array.from({ length: Math.ceil(length / size) });
 
   while (index < length) {
     result[resIndex++] = array.slice(index, (index += size));

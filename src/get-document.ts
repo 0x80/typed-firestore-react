@@ -24,8 +24,7 @@ export async function getDocument<T extends UnknownObject>(
 
 export async function getDocumentData<T extends UnknownObject>(
   collectionRef: CollectionReference<T>,
-  documentId: string,
-  _bla: string
+  documentId: string
 ) {
   const docSnap = await getDoc(doc(collectionRef, documentId));
 
@@ -34,7 +33,7 @@ export async function getDocumentData<T extends UnknownObject>(
     `No document available at ${collectionRef.path}/${documentId}`
   );
 
-  return docSnap.data() as T;
+  return docSnap.data();
 }
 
 export async function getDocumentMaybe<T extends UnknownObject>(
@@ -56,7 +55,7 @@ export async function getDocumentDataMaybe<T extends UnknownObject>(
 
   if (!snapshot.exists()) return;
 
-  return snapshot.data() as T;
+  return snapshot.data();
 }
 
 export async function getDocumentFromTransaction<T extends UnknownObject>(
