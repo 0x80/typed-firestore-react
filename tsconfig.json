@@ -1,0 +1,6 @@
+{
+  "extends": "@codecompose/typescript-config/single-library",
+  "compilerOptions": {
+    "outDir": "./dist" // tsc-alias needs this for now
+  }
+}
