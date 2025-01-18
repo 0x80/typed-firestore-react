@@ -1,6 +1,6 @@
 {
   "name": "@typed-firestore/react",
-  "version": "1.0.0-0",
+  "version": "1.0.0-1",
   "description": "Elegant, strongly-typed React hooks for handling Firestore documents",
   "repository": {
     "type": "git",
