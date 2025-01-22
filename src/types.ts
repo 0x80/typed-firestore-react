@@ -18,11 +18,25 @@ export type FsDocument<T> = Readonly<{
 export type FsMutableDocument<T> = Readonly<{
   ref: DocumentReference<T>;
   update: (data: UpdateData<T>) => Promise<void>;
+  /**
+   * The Firestore `UpdateData` type which allows the use of FieldValue
+   * sometimes does not accept perfectly valid data. This is an alternative
+   * without FieldValue.
+   */
+  updateWithPartial: (data: Partial<T>) => Promise<void>;
+  delete: () => Promise<void>;
 }> &
   FsDocument<T>;
 
-export type FsMutableDocumentFromTransaction<T> = Readonly<{
-  ref: DocumentReference<T>;
+export type FsMutableDocumentInTransaction<T> = Readonly<{
+  ref: DocumentReference;
   update: (data: UpdateData<T>) => Transaction;
+  /**
+   * The Firestore `UpdateData` type which allows the use of FieldValue
+   * sometimes does not accept perfectly valid data. This is an alternative
+   * without FieldValue.
+   */
+  updateWithPartial: (data: Partial<T>) => Transaction;
+  delete: () => Transaction;
 }> &
   FsDocument<T>;

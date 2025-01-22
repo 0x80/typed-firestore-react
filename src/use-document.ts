@@ -11,9 +11,13 @@ import type { FsDocument, UnknownObject } from "./types.js";
 export function useDocument<T extends UnknownObject>(
   collectionRef: CollectionReference<T>,
   documentId?: string
-): [FsDocument<T> | undefined, boolean] {
+): [FsDocument<T>, false] | [undefined, true] {
   const ref = documentId ? doc(collectionRef, documentId) : undefined;
-  const [snapshot, isLoading, error] = useDocument_orig(ref);
+  /**
+   * We do not need the loading state really. If there is not data, and there is
+   * no error, it means data is still loading.
+   */
+  const [snapshot, , error] = useDocument_orig(ref);
 
   if (error) {
     throw error;
@@ -24,7 +28,7 @@ export function useDocument<T extends UnknownObject>(
     [snapshot]
   );
 
-  return [document, isLoading];
+  return document ? [document, false] : [undefined, true];
 }
 
 /** A version of useDocument that doesn't throw when the document doesn't exist. */
@@ -46,18 +50,22 @@ export function useDocumentMaybe<T extends UnknownObject>(
 export function useDocumentData<T extends UnknownObject>(
   collectionRef: CollectionReference<T>,
   documentId?: string
-): [T | undefined, boolean] {
+): [T, false] | [undefined, true] {
   const [document, isLoading] = useDocument(collectionRef, documentId);
 
-  return [document?.data, isLoading];
+  return isLoading ? [undefined, true] : [document.data, false];
 }
 
 export function useDocumentOnce<T extends UnknownObject>(
   collectionRef: CollectionReference<T>,
   documentId?: string
-): [FsDocument<T> | undefined, boolean] {
+): [FsDocument<T>, false] | [undefined, true] {
   const ref = documentId ? doc(collectionRef, documentId) : undefined;
-  const [snapshot, isLoading, error] = useDocumentOnce_orig(ref);
+  /**
+   * We do not need the loading state really. If there is not data, and there is
+   * no error, it means data is still loading.
+   */
+  const [snapshot, , error] = useDocumentOnce_orig(ref);
 
   if (error) {
     throw error;
@@ -68,5 +76,14 @@ export function useDocumentOnce<T extends UnknownObject>(
     [snapshot]
   );
 
-  return [document, isLoading];
+  return document ? [document, false] : [undefined, true];
+}
+
+export function useDocumentDataOnce<T extends UnknownObject>(
+  collectionRef: CollectionReference<T>,
+  documentId?: string
+): [T, false] | [undefined, true] {
+  const [document, isLoading] = useDocumentOnce(collectionRef, documentId);
+
+  return isLoading ? [undefined, true] : [document.data, false];
 }

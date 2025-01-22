@@ -1,13 +1,13 @@
 import {
+  deleteDoc,
   updateDoc,
   type DocumentSnapshot,
   type Transaction,
   type UpdateData,
 } from "firebase/firestore";
-
 import type {
   FsMutableDocument,
-  FsMutableDocumentFromTransaction,
+  FsMutableDocumentInTransaction,
   UnknownObject,
 } from "~/types";
 
@@ -19,17 +19,23 @@ export function makeMutableDocument<T extends UnknownObject>(
     data: doc.data()!,
     ref: doc.ref,
     update: (data: UpdateData<T>) => updateDoc(doc.ref, data),
+    updateWithPartial: (data: Partial<T>) =>
+      updateDoc(doc.ref, data as UpdateData<T>),
+    delete: () => deleteDoc(doc.ref),
   };
 }
 
-export function makeMutableDocumentFromTransaction<T extends UnknownObject>(
+export function makeMutableDocumentInTransaction<T extends UnknownObject>(
   doc: DocumentSnapshot<T>,
-  transaction: Transaction
-): FsMutableDocumentFromTransaction<T> {
+  tx: Transaction
+): FsMutableDocumentInTransaction<T> {
   return {
     id: doc.id,
     data: doc.data()!,
     ref: doc.ref,
-    update: (data: UpdateData<T>) => transaction.update(doc.ref, data),
+    update: (data: UpdateData<T>) => tx.update(doc.ref, data),
+    updateWithPartial: (data: Partial<T>) =>
+      tx.update(doc.ref, data as UpdateData<T>),
+    delete: () => tx.delete(doc.ref),
   };
 }
