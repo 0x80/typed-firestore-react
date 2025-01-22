@@ -8,7 +8,7 @@ import {
   useDocument as useDocument_orig,
   useDocumentOnce as useDocumentOnce_orig,
 } from "react-firebase-hooks/firestore";
-import { makeMutableDocument } from "./helpers";
+import { makeMutableDocument } from "./make-mutable-document";
 import type { FsDocument, UnknownObject } from "./types.js";
 
 export function useDocument<T extends UnknownObject>(

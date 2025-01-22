@@ -5,7 +5,7 @@ import {
   type Transaction,
 } from "firebase/firestore";
 import { invariant } from "~/utils";
-import { makeMutableDocument } from "./helpers";
+import { makeMutableDocument } from "./make-mutable-document";
 import type { UnknownObject } from "./types";
 
 export async function getDocument<T extends UnknownObject>(
