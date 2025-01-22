@@ -1,7 +1,6 @@
 import {
-  doc,
   getDoc,
-  type CollectionReference,
+  type DocumentReference,
   type Transaction,
 } from "firebase/firestore";
 import { invariant } from "~/utils";
@@ -9,46 +8,31 @@ import { makeDocument, makeMutableDocument } from "./helpers";
 import type { UnknownObject } from "./types";
 
 export async function getSpecificDocument<T extends UnknownObject>(
-  collectionRef: CollectionReference<T>,
-  documentId: string
+  documentRef: DocumentReference<T>
 ) {
-  const snapshot = await getDoc(doc(collectionRef, documentId));
+  const snapshot = await getDoc(documentRef);
 
-  invariant(
-    snapshot.exists(),
-    `No document available at ${collectionRef.path}/${documentId}`
-  );
+  invariant(snapshot.exists(), `No document available at ${documentRef.path}`);
 
   return makeMutableDocument(snapshot);
 }
 
 export async function getSpecificDocumentData<T extends UnknownObject>(
-  collectionRef: CollectionReference<T>,
-  documentId: string
+  documentRef: DocumentReference<T>
 ) {
-  const docSnap = await getDoc(doc(collectionRef, documentId));
+  const docSnap = await getDoc(documentRef);
 
-  invariant(
-    docSnap.exists(),
-    `No document available at ${collectionRef.path}/${documentId}`
-  );
+  invariant(docSnap.exists(), `No document available at ${documentRef.path}`);
 
   return docSnap.data();
 }
 
 export async function getSpecificDocumentFromTransaction<
   T extends UnknownObject,
->(
-  transaction: Transaction,
-  collectionRef: CollectionReference<T>,
-  documentId: string
-) {
-  const snapshot = await transaction.get(doc(collectionRef, documentId));
+>(transaction: Transaction, documentRef: DocumentReference<T>) {
+  const snapshot = await transaction.get(documentRef);
 
-  invariant(
-    snapshot.exists(),
-    `No document available at ${collectionRef.path}/${documentId}`
-  );
+  invariant(snapshot.exists(), `No document available at ${documentRef.path}`);
 
   return makeDocument(snapshot);
 }
