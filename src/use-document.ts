@@ -1,4 +1,7 @@
-import type { CollectionReference } from "firebase/firestore";
+import type {
+  CollectionReference,
+  DocumentReference,
+} from "firebase/firestore";
 import { doc } from "firebase/firestore";
 import { useMemo } from "react";
 import {
@@ -86,4 +89,46 @@ export function useDocumentDataOnce<T extends UnknownObject>(
   const [document, isLoading] = useDocumentOnce(collectionRef, documentId);
 
   return isLoading ? [undefined, true] : [document.data, false];
+}
+
+export function useSpecificDocument<T extends UnknownObject>(
+  documentRef: DocumentReference<T>
+): [FsDocument<T>, false] | [undefined, true] {
+  /**
+   * We do not need the loading state really. If there is not data, and there is
+   * no error, it means data is still loading.
+   */
+  const [snapshot, , error] = useDocument_orig(documentRef);
+
+  if (error) {
+    throw error;
+  }
+
+  const document = useMemo(
+    () => (snapshot?.exists() ? makeMutableDocument(snapshot) : undefined),
+    [snapshot]
+  );
+
+  return document ? [document, false] : [undefined, true];
+}
+
+export function useSpecificDocumentData<T extends UnknownObject>(
+  documentRef: DocumentReference<T>
+): [T, false] | [undefined, true] {
+  /**
+   * We do not need the loading state really. If there is not data, and there is
+   * no error, it means data is still loading.
+   */
+  const [snapshot, , error] = useDocument_orig(documentRef);
+
+  if (error) {
+    throw error;
+  }
+
+  const data = useMemo(
+    () => (snapshot?.exists() ? snapshot.data() : undefined),
+    [snapshot]
+  );
+
+  return data ? [data, false] : [undefined, true];
 }
