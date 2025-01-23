@@ -5,10 +5,7 @@ import {
   query,
 } from "firebase/firestore";
 import { useMemo } from "react";
-import {
-  useCollectionOnce as useCollectionOnce_orig,
-  useCollection as useCollection_orig,
-} from "react-firebase-hooks/firestore";
+import { useCollection_fork, useCollectionOnce_fork } from "./fork/firestore";
 import { makeMutableDocument } from "./make-mutable-document";
 import type { FsDocument, UnknownObject } from "./types";
 import { isDefined } from "./utils";
@@ -27,7 +24,7 @@ export function useCollection<T extends UnknownObject>(
    * We do not need the loading state really. If there is not data, and there is
    * no error, it means data is still loading.
    */
-  const [snapshot, , error] = useCollection_orig(_query);
+  const [snapshot, , error] = useCollection_fork(_query);
 
   if (error) {
     throw new Error(
@@ -59,7 +56,7 @@ export function useCollectionOnce<T extends UnknownObject>(
    * We do not need the loading state really. If there is not data, and there is
    * no error, it means data is still loading.
    */
-  const [snapshot, , error] = useCollectionOnce_orig(_query);
+  const [snapshot, , error] = useCollectionOnce_fork(_query);
 
   if (error) {
     throw new Error(

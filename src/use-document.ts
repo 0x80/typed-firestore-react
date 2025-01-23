@@ -4,10 +4,7 @@ import type {
 } from "firebase/firestore";
 import { doc } from "firebase/firestore";
 import { useMemo } from "react";
-import {
-  useDocument as useDocument_orig,
-  useDocumentOnce as useDocumentOnce_orig,
-} from "react-firebase-hooks/firestore";
+import { useDocument_fork, useDocumentOnce_fork } from "./fork/firestore";
 import { makeMutableDocument } from "./make-mutable-document";
 import type { FsDocument, UnknownObject } from "./types.js";
 
@@ -20,7 +17,7 @@ export function useDocument<T extends UnknownObject>(
    * We do not need the loading state really. If there is not data, and there is
    * no error, it means data is still loading.
    */
-  const [snapshot, , error] = useDocument_orig(ref);
+  const [snapshot, , error] = useDocument_fork(ref);
 
   if (error) {
     throw error;
@@ -40,7 +37,7 @@ export function useDocumentMaybe<T extends UnknownObject>(
   documentId?: string
 ): [FsDocument<T> | undefined, boolean] {
   const ref = documentId ? doc(collectionRef, documentId) : undefined;
-  const [snapshot, isLoading] = useDocument_orig(ref);
+  const [snapshot, isLoading] = useDocument_fork(ref);
 
   const document = useMemo(
     () => (snapshot?.exists() ? makeMutableDocument(snapshot) : undefined),
@@ -68,7 +65,7 @@ export function useDocumentOnce<T extends UnknownObject>(
    * We do not need the loading state really. If there is not data, and there is
    * no error, it means data is still loading.
    */
-  const [snapshot, , error] = useDocumentOnce_orig(ref);
+  const [snapshot, , error] = useDocumentOnce_fork(ref);
 
   if (error) {
     throw error;
@@ -98,7 +95,7 @@ export function useSpecificDocument<T extends UnknownObject>(
    * We do not need the loading state really. If there is not data, and there is
    * no error, it means data is still loading.
    */
-  const [snapshot, , error] = useDocument_orig(documentRef);
+  const [snapshot, , error] = useDocument_fork(documentRef);
 
   if (error) {
     throw error;
@@ -119,7 +116,7 @@ export function useSpecificDocumentData<T extends UnknownObject>(
    * We do not need the loading state really. If there is not data, and there is
    * no error, it means data is still loading.
    */
-  const [snapshot, , error] = useDocument_orig(documentRef);
+  const [snapshot, , error] = useDocument_fork(documentRef);
 
   if (error) {
     throw error;
