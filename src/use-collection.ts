@@ -7,13 +7,13 @@ import {
 import { useMemo } from "react";
 import { useCollection_fork, useCollectionOnce_fork } from "./fork/firestore";
 import { makeMutableDocument } from "./make-mutable-document";
-import type { FsDocument, UnknownObject } from "./types";
+import type { FsMutableDocument, UnknownObject } from "./types";
 import { isDefined } from "./utils";
 
 export function useCollection<T extends UnknownObject>(
   collectionRef: CollectionReference<T>,
   ...queryConstraints: (QueryConstraint | undefined)[]
-): [FsDocument<T>[], false] | [undefined, true] {
+): [FsMutableDocument<T>[], false] | [undefined, true] {
   const hasNoConstraints = queryConstraints.length === 0;
 
   const _query = hasNoConstraints
@@ -45,7 +45,7 @@ export function useCollection<T extends UnknownObject>(
 export function useCollectionOnce<T extends UnknownObject>(
   collectionRef: CollectionReference<T>,
   ...queryConstraints: (QueryConstraint | undefined)[]
-): [FsDocument<T>[], false] | [undefined, true] {
+): [FsMutableDocument<T>[], false] | [undefined, true] {
   const hasNoConstraints = queryConstraints.length === 0;
 
   const _query = hasNoConstraints

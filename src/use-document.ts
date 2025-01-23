@@ -6,12 +6,12 @@ import { doc } from "firebase/firestore";
 import { useMemo } from "react";
 import { useDocument_fork, useDocumentOnce_fork } from "./fork/firestore";
 import { makeMutableDocument } from "./make-mutable-document";
-import type { FsDocument, UnknownObject } from "./types.js";
+import type { FsMutableDocument, UnknownObject } from "./types.js";
 
 export function useDocument<T extends UnknownObject>(
   collectionRef: CollectionReference<T>,
   documentId?: string
-): [FsDocument<T>, false] | [undefined, true] {
+): [FsMutableDocument<T>, false] | [undefined, true] {
   const ref = documentId ? doc(collectionRef, documentId) : undefined;
   /**
    * We do not need the loading state really. If there is not data, and there is
@@ -35,7 +35,7 @@ export function useDocument<T extends UnknownObject>(
 export function useDocumentMaybe<T extends UnknownObject>(
   collectionRef: CollectionReference<T>,
   documentId?: string
-): [FsDocument<T> | undefined, boolean] {
+): [FsMutableDocument<T> | undefined, boolean] {
   const ref = documentId ? doc(collectionRef, documentId) : undefined;
   const [snapshot, isLoading] = useDocument_fork(ref);
 
@@ -59,7 +59,7 @@ export function useDocumentData<T extends UnknownObject>(
 export function useDocumentOnce<T extends UnknownObject>(
   collectionRef: CollectionReference<T>,
   documentId?: string
-): [FsDocument<T>, false] | [undefined, true] {
+): [FsMutableDocument<T>, false] | [undefined, true] {
   const ref = documentId ? doc(collectionRef, documentId) : undefined;
   /**
    * We do not need the loading state really. If there is not data, and there is
@@ -90,7 +90,7 @@ export function useDocumentDataOnce<T extends UnknownObject>(
 
 export function useSpecificDocument<T extends UnknownObject>(
   documentRef: DocumentReference<T>
-): [FsDocument<T>, false] | [undefined, true] {
+): [FsMutableDocument<T>, false] | [undefined, true] {
   /**
    * We do not need the loading state really. If there is not data, and there is
    * no error, it means data is still loading.
