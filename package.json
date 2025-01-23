@@ -1,7 +1,7 @@
 {
   "name": "@typed-firestore/react",
   "version": "1.0.0-3",
-  "description": "Elegant, strongly-typed React hooks for handling Firestore documents",
+  "description": "Elegant, typed abstractions for Firestore in React applications",
   "repository": {
     "type": "git",
     "url": "https://github.com/0x80/typed-firestore-react"
@@ -13,14 +13,12 @@
     "hooks",
     "typescript"
   ],
-  "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "default": "./dist/index.js"
     }
   },
   "files": [
@@ -29,7 +27,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "packageManager": "pnpm@9.15.3",
+  "packageManager": "pnpm@10.0.0",
   "engines": {
     "node": ">=20"
   },
