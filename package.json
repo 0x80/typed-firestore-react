@@ -35,7 +35,7 @@
     "lint": "eslint src",
     "compile": "tsc --noEmit",
     "build": "tsup && tsc --emitDeclarationOnly && tsc-alias --verbose",
-    "prepare": "pnpm run compile && pnpm run build",
+    "prepare": "pnpm clean && pnpm build",
     "test": "echo \"No test specified\"",
     "clean": "del-cli dist tsconfig.tsbuildinfo"
   },
