@@ -14,7 +14,7 @@ export function useDocument<T extends UnknownObject>(
 ): [FsMutableDocument<T>, false] | [undefined, true] {
   const ref = documentId ? doc(collectionRef, documentId) : undefined;
   /**
-   * We do not need the loading state really. If there is not data, and there is
+   * We do not need the loading state really. If there is no data, and there is
    * no error, it means data is still loading.
    */
   const [snapshot, , error] = useDocument_fork(ref);
@@ -62,7 +62,7 @@ export function useDocumentOnce<T extends UnknownObject>(
 ): [FsMutableDocument<T>, false] | [undefined, true] {
   const ref = documentId ? doc(collectionRef, documentId) : undefined;
   /**
-   * We do not need the loading state really. If there is not data, and there is
+   * We do not need the loading state really. If there is no data, and there is
    * no error, it means data is still loading.
    */
   const [snapshot, , error] = useDocumentOnce_fork(ref);
@@ -92,7 +92,7 @@ export function useSpecificDocument<T extends UnknownObject>(
   documentRef: DocumentReference<T>
 ): [FsMutableDocument<T>, false] | [undefined, true] {
   /**
-   * We do not need the loading state really. If there is not data, and there is
+   * We do not need the loading state really. If there is no data, and there is
    * no error, it means data is still loading.
    */
   const [snapshot, , error] = useDocument_fork(documentRef);
@@ -113,7 +113,7 @@ export function useSpecificDocumentData<T extends UnknownObject>(
   documentRef: DocumentReference<T>
 ): [T, false] | [undefined, true] {
   /**
-   * We do not need the loading state really. If there is not data, and there is
+   * We do not need the loading state really. If there is no data, and there is
    * no error, it means data is still loading.
    */
   const [snapshot, , error] = useDocument_fork(documentRef);

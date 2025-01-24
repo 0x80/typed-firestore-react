@@ -21,7 +21,7 @@ export function useCollection<T extends UnknownObject>(
     : query(collectionRef, ...queryConstraints.filter(isDefined));
 
   /**
-   * We do not need the loading state really. If there is not data, and there is
+   * We do not need the loading state really. If there is no data, and there is
    * no error, it means data is still loading.
    */
   const [snapshot, , error] = useCollection_fork(_query);
@@ -53,7 +53,7 @@ export function useCollectionOnce<T extends UnknownObject>(
     : query(collectionRef, ...queryConstraints.filter(isDefined));
 
   /**
-   * We do not need the loading state really. If there is not data, and there is
+   * We do not need the loading state really. If there is no data, and there is
    * no error, it means data is still loading.
    */
   const [snapshot, , error] = useCollectionOnce_fork(_query);
