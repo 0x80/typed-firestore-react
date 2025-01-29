@@ -148,7 +148,7 @@ With some more complex nested data, it can happend that the Firestore
 `updateWithPartial` is available as an alternative.
 
 The original document `ref` is also available, in case you need functionality
-that is not covered by this library, or you need to call `update` untyped.
+that is not covered by this library.
 
 ```ts
 export type FsMutableDocument<T> = {
@@ -168,20 +168,19 @@ for more info.
 ## Client-Side Mutations
 
 In my projects I prefer to have all mutations happen on the server-side via an
-API call, so you might want to consider that, especially if older versions of
-your app could be around for a while like with mobile apps, because a bug in
-client-side code could have lasting effects on the consistency of your data, and
+API call. You might want to consider that, especially if older versions of your
+app could be around for a while, like with mobile apps. A bug in client-side
+code could have lasting effects on the consistency of your database, and
 time-consuming to have to work around.
 
-Facilitating client-side writes in a safe way also requires you to write lots of
-database rules for your Firestore documents, which can get very complex, so
-mutating documents server-side is not only easier to reason about but also more
-secure by default.
+Facilitating client-side writes in a safe way also requires writing database
+rules for your documents, which can get very complex, so mutating documents
+server-side is not only easier to reason about but also more secure by default.
 
 ## Throwing Errors
 
-The hooks in this library throw errors, which is not a common practice, but this
-was a deliberate choice.
+The hooks in this library throw errors, instead of returning them, which is not
+common practice, but this was a deliberate choice.
 
 In my experience, runtime exceptions for Firestore documents and collection
 queries are very rare. By throwing we can avoid having to handle errors, and
