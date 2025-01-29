@@ -126,16 +126,6 @@ const { data, isError } = useQuery({
 
 ## Working with Documents
 
-I prefer to perform all document mutations server-side via an API call,
-especially if older versions of your app could be around for a while like with
-react-native, because a bug in client-side code could have lasting effects on
-the consistency of your data.
-
-Facilitating client-side writes in a safe way also requires you to write
-database rules for your Firestore documents, which can get very complex, so
-mutating documents server-side is not only easier to to reason about but also
-secure by default.
-
 The default immutable document type is `FsDocument<T>`. Use this type when you
 write functions that take data without needing to change it.
 
@@ -154,9 +144,8 @@ you to pass in properties that exist on the type. Firestore FieldValue is
 allowed to be used to set things like Timestamps.
 
 With some more complex nested data, it can happend that the Firestore
-`UpdateData<T>` type doesn't accept your perfectly ok data. In that case, if you
-do not need to use `FieldValue` you can use the `updatePartial` method as a
-workaround.
+`UpdateData<T>` type doesn't accept your data. For those situations
+`updateWithPartial` is available as an alternative.
 
 The original document `ref` is also available, in case you need functionality
 that is not covered by this library, or you need to call `update` untyped.
@@ -172,18 +161,22 @@ export type FsMutableDocument<T> = {
 };
 ```
 
-In the case of a transaction, the `
+See the
+[@typed-firestore/server docs](https://github.com/0x80/typed-firestore-server#document-types)
+for more info.
 
-```ts
-export type FsMutableDocumentInTransaction<T> = {
-  id: string;
-  data: T;
-  ref: DocumentReference<T>;
-  update: (data: UpdateData<T>) => Transaction;
-  updatePartial: (data: Partial<T>) => Transaction;
-  delete: () => Transaction;
-};
-```
+## Client-Side Mutations
+
+In my projects I prefer to have all mutations happen on the server-side via an
+API call, so you might want to consider that, especially if older versions of
+your app could be around for a while like with mobile apps, because a bug in
+client-side code could have lasting effects on the consistency of your data, and
+time-consuming to have to work around.
+
+Facilitating client-side writes in a safe way also requires you to write lots of
+database rules for your Firestore documents, which can get very complex, so
+mutating documents server-side is not only easier to reason about but also more
+secure by default.
 
 ## Throwing Errors
 
@@ -191,9 +184,8 @@ The hooks in this library throw errors, which is not a common practice, but this
 was a deliberate choice.
 
 In my experience, runtime exceptions for Firestore documents and collection
-queries are very rare. By throwing we can avoid having to handle errors or even
-loading state separately in every calling context, and optimize for the
-happy-path.
+queries are very rare. By throwing we can avoid having to handle errors, and
+optimize for the happy-path.
 
 The most common errors are:
 
@@ -204,16 +196,16 @@ The most common errors are:
 I think all of these are likely to be caught during development and testing and
 should not occur in production code.
 
-In some cases it is a valid state that the document might not exist, so for
-those situations we have the `*Maybe` variants like `useDocumentMaybe()`. These
-functions do not throw but simply return undefined if the document does not
+In some cases it is expected that the document might not exist, so for those
+situations we have the `*Maybe` variants like `useDocumentMaybe()`. These
+functions do not throw, and simply return undefined if the document does not
 exist.
 
-This approach of not handling errors in the calling context, also has a nice
-benefit, because now the loading state is directly tied to the data
-availability. If you wait for the loading state from `useDocument()` to be true,
-the Typescript compiler is also guaranteed that the data is defined.
+This approach also has a nice benefit, because now the loading state is directly
+tied to the data availability. If you wait for the loading state from
+`useDocument()` to become true, the Typescript compiler is also guaranteed that
+the data exists.
 
-In that sense, you do not need the loading state at all.It would be sufficient
-to just wait for the data to become defined, but for readability I would still
-recommend using the loading state variable.
+In that sense, you do not even need the loading state at all. It would be
+sufficient to simply wait for the data to become defined, but for code
+readability I would still recommend using the loading state variable.
