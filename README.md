@@ -1,6 +1,6 @@
 # Typed Firestore - React
 
-Elegant, typed React hooks for handling Firestore documents in React
+Elegant, typed abstractions for handling Firestore documents in React
 applications.
 
 This library is based on the same concepts as
@@ -209,3 +209,16 @@ the data exists.
 In that sense, you do not even need the loading state at all. It would be
 sufficient to simply wait for the data to become defined, but for code
 readability I would still recommend using the loading state variable.
+
+## Fork
+
+This library is currently based on a fork of
+[react-firebase-hooks](https://github.com/csfrequency/react-firebase-hooks),
+which was stripped and cleaned up.
+
+The hooks in this package are mostly a stronger-typed, more focussed abstraction
+on top of the Firestore hooks from that library.
+
+I plan to rewrite the code at some point because it can probably be simplified
+and improved, but for now it allows us to rely on the functionality without
+having to write tests.
