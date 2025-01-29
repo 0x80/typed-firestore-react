@@ -28,20 +28,20 @@ map each to the appropriate type, as shown below.
 
 ```ts
 // db-refs.ts
-import { CollectionReference } from "firebase/firestore";
+import { collection, type CollectionReference } from "firebase/firestore";
 import { db } from "./firestore";
 import { User, WishlistItem, Book } from "./types";
 
 export const refs = {
   /** For top-level collections it's easy */
-  users: db.collection("users") as CollectionReference<User>,
-  books: db.collection("books") as CollectionReference<Book>,
+  users: collection(db, "users") as CollectionReference<User>,
+  books: collection(db, "books") as CollectionReference<Book>,
   /** For sub-collections you could use a function that returns the reference. */
   userWishlist: (userId: string) =>
-    db
-      .collection("users")
-      .doc(userId)
-      .collection("wishlist") as CollectionReference<WishlistItem>,
+    collection(
+      db,
+      `users/${userId}/wishlist`
+    ) as CollectionReference<WishlistItem>,
 
   /** This object never needs to change */
 } as const;
@@ -156,7 +156,7 @@ export type FsMutableDocument<T> = {
   data: T;
   ref: DocumentReference<T>;
   update: (data: UpdateData<T>) => Promise<void>;
-  updatePartial: (data: Partial<T>) => Promise<void>;
+  updatePartial: (data: PartialWithFieldValue<T>) => Promise<void>;
   delete: () => Promise<void>;
 };
 ```
