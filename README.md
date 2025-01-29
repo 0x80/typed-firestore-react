@@ -1,21 +1,21 @@
 # Typed Firestore - React
 
-Elegant, strongly-typed React hooks for handling Firestore documents. This is
-currently implemented as a stronger-typed, more focussed and opinionated
-abstraction on top of [react-firebase-hooks]().
+Elegant, typed React hooks for handling Firestore documents in React
+applications.
 
-This library uses typing similar to
-[@typed-firestore/server](https://github.com/0x80/typed-firestore-server), so
-you can be consistent between server and client code.
+This library is based on the same concepts as
+[@typed-firestore/server](https://github.com/0x80/typed-firestore-server),
+allowing your project to be consistent in both server and client code.
 
 ## Features
 
-- Type your collections once, and infer from that.
-- Uses the same [FsDocument](#fsdocument) abstraction as found in
-  [typed-firestore-server](https://github.com/0x80/typed-firestore-server) for
-  consistency between front and backend code.
-- Throws errors instead of returning them. See
-  [throwing errors](#throwing-errors) for motivation.
+- Avoid having to import and apply types everywhere, by typing your collections
+  once.
+- Use the same convenient [document abstraction](#fsdocument) abstraction as
+  found in
+  [typed-firestore-server](https://github.com/0x80/typed-firestore-server).
+- Simplify handling and loading states by throwing errors instead of returning
+  them. See [throwing errors](#throwing-errors) for motivation.
 
 ## Installation
 
@@ -47,7 +47,7 @@ export const refs = {
 } as const;
 ```
 
-Then in a component you would do something like this:
+Below is an example of how to use the hooks in a component:
 
 ```ts
 import { useDocument } from "@typed-firestore/react";
@@ -55,21 +55,25 @@ import { UpdateData } from "firebase/firestore";
 
 export function DisplayName({userId}: {userId: string}) {
 
-/** The returned user is typed as FsMutableDocument<User> */
-const [user, isLoading] = useDocument(refs.users, userId);
+  /** The returned user is typed as FsMutableDocument<User> */
+  const [user, isLoading] = useDocument(refs.users, userId);
 
-function handleUpdate() {
-  /**
-   * Here you can only pass in properties that exist on the User type.
-   * FieldValue is allowed to be used to set things like Timestamps.
-   */
-  user.update({modifiedAt: FieldValue.serverTimestamp()})
-}
-
-if (isLoading) {
-  return <LoadingIndicator/>;
+  function handleUpdate() {
+    /**
+     * Here you can only pass in properties that exist on the User type.
+     * FieldValue is allowed to be used to set things like Timestamps.
+     */
+    user.update({modifiedAt: FieldValue.serverTimestamp()})
   }
 
+  if (isLoading) {
+    return <LoadingIndicator/>;
+  }
+
+  /**
+   * Here Typescript understands that user.data is available, and it is typed
+   * correctly to User.
+   */
   return <div onClick={handleUpdate}>{user.data.displayName}</div>;
 }
 ```
@@ -78,6 +82,10 @@ Notice how we did not need to import the User type, or manually type our update
 data to satisfy the type constraints. Everything flows from the collection refs.
 Re-using collection refs also avoids having to remember the names and write them
 correctly.
+
+Also, because errors are being thrown instead of returned, the Typescript
+compiler is assured that if `isLoading` becomes false, the `user.data` property
+should be available (because otherwise an error would have been thrown).
 
 ## API
 
