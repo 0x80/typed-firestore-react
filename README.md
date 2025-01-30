@@ -55,14 +55,11 @@ import { UpdateData } from "firebase/firestore";
 
 export function DisplayName({userId}: {userId: string}) {
 
-  /** The returned user is typed as FsMutableDocument<User> */
+  /** Returns user as FsMutableDocument<User> */
   const [user, isLoading] = useDocument(refs.users, userId);
 
   function handleUpdate() {
-    /**
-     * Here you can only pass in properties that exist on the User type.
-     * FieldValue is allowed to be used to set things like Timestamps.
-     */
+    /** Here update is typed to User, and FieldValues are allowed */
     user.update({modifiedAt: FieldValue.serverTimestamp()})
   }
 
@@ -71,8 +68,7 @@ export function DisplayName({userId}: {userId: string}) {
   }
 
   /**
-   * Here Typescript understands that user.data is available, and it is typed
-   * correctly to User.
+   * Typescript knows that user.data is available, because isLoading is false.
    */
   return <div onClick={handleUpdate}>{user.data.displayName}</div>;
 }
@@ -221,3 +217,34 @@ on top of the Firestore hooks from that library.
 I plan to rewrite the code at some point because it can probably be simplified
 and improved, but for now it allows us to rely on the functionality without
 having to write tests.
+
+## Sharing Types Between Server and Client
+
+When you share your document types between your server and client code, you
+might run into a problem with the `Timestamp` type, because the web and server
+SDKs currently have slightly incompatible types. The web timestamp has a
+`toJSON`method which doesn't exist on the server.
+
+The way I work around this, is by using a type alias called `FsTimestamp` in all
+of my document types. Then, in each of the client-side or server-side
+applications, I declare this type globally in a `global.d.ts` file.
+
+For web it looks like this:
+
+```ts
+import type { Timestamp } from "firebase/firestore";
+
+declare global {
+  type FsTimestamp = Timestamp;
+}
+```
+
+For my server code it looks like this:
+
+```ts
+import type { Timestamp } from "firebase-admin/firestore";
+
+declare global {
+  type FsTimestamp = Timestamp;
+}
+```
