@@ -1,6 +1,6 @@
 {
   "name": "@typed-firestore/react",
-  "version": "1.0.0-7",
+  "version": "1.0.0",
   "description": "Elegant, typed abstractions for Firestore in React applications",
   "repository": {
     "type": "git",
