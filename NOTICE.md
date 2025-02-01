@@ -1,3 +1,6 @@
+This project is based on https://github.com/CSFrequency/react-firebase-hooks The
+license of react-firebase-hooks:
+
                                  Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
@@ -173,7 +176,7 @@ APPENDIX: How to apply the Apache License to your work.
       same "printed page" as the copyright notice for easier
       identification within third-party archives.
 
-Copyright 2025 Thijs Koerselman
+Copyright 2018 CS Frequency Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
 this file except in compliance with the License. You may obtain a copy of the
