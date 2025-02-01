@@ -41,7 +41,7 @@
     "clean": "del-cli dist tsconfig.tsbuildinfo"
   },
   "author": "Thijs Koerselman",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "devDependencies": {
     "@codecompose/typescript-config": "^1.2.0",
     "@eslint/js": "^9.18.0",
