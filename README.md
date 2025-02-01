@@ -7,6 +7,13 @@ This library is based on the same concepts as
 [@typed-firestore/server](https://github.com/0x80/typed-firestore-server),
 allowing your project to be consistent in both server and client code.
 
+For React Native applications, see
+[@typed-firestore/react-native](https://github.com/0x80/typed-firestore-react-native).
+
+💡 Check out my
+[in-depth article](https://dev.to/0x80/how-to-write-clean-typed-firestore-code-37j2)
+about this library.
+
 ## Features
 
 - Avoid having to import and apply types everywhere, by typing your collections

@@ -7,10 +7,12 @@
     "url": "https://github.com/0x80/typed-firestore-react"
   },
   "keywords": [
-    "typed-firestore",
+    "firebase",
     "firestore",
-    "react",
     "hooks",
+    "react",
+    "typed-firestore",
+    "typed",
     "typescript"
   ],
   "type": "module",
