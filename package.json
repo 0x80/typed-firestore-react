@@ -36,7 +36,7 @@
   },
   "scripts": {
     "lint": "eslint src",
-    "compile": "tsc --noEmit",
+    "type-check": "tsc --noEmit",
     "build": "tsup && tsc --emitDeclarationOnly && tsc-alias --verbose",
     "prepare": "pnpm clean && pnpm build",
     "test": "echo \"No test specified\"",
