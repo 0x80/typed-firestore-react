@@ -4,8 +4,6 @@ import type {
   UpdateData,
 } from "firebase/firestore";
 
-export type UnknownObject = Record<string, unknown>;
-
 /**
  * A simple serialize-able document type. Use this when defining functions that
  * take a document but do not need to mutate it.

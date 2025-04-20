@@ -1,5 +1,6 @@
 import {
   type CollectionReference,
+  type DocumentData,
   type QueryConstraint,
   limit,
   query,
@@ -7,10 +8,10 @@ import {
 import { useMemo } from "react";
 import { useCollection_fork, useCollectionOnce_fork } from "./fork/firestore";
 import { makeMutableDocument } from "./make-mutable-document";
-import type { FsMutableDocument, UnknownObject } from "./types";
+import type { FsMutableDocument } from "./types";
 import { isDefined } from "./utils";
 
-export function useCollection<T extends UnknownObject>(
+export function useCollection<T extends DocumentData>(
   collectionRef: CollectionReference<T>,
   ...queryConstraints: (QueryConstraint | undefined)[]
 ): [FsMutableDocument<T>[], false] | [undefined, true] {
@@ -42,7 +43,7 @@ export function useCollection<T extends UnknownObject>(
   return docs ? [docs, false] : [undefined, true];
 }
 
-export function useCollectionOnce<T extends UnknownObject>(
+export function useCollectionOnce<T extends DocumentData>(
   collectionRef: CollectionReference<T>,
   ...queryConstraints: (QueryConstraint | undefined)[]
 ): [FsMutableDocument<T>[], false] | [undefined, true] {

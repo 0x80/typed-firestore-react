@@ -1,6 +1,7 @@
 import {
   deleteDoc,
   updateDoc,
+  type DocumentData,
   type DocumentSnapshot,
   type Transaction,
   type UpdateData,
@@ -8,10 +9,9 @@ import {
 import type {
   FsMutableDocument,
   FsMutableDocumentInTransaction,
-  UnknownObject,
 } from "~/types";
 
-export function makeMutableDocument<T extends UnknownObject>(
+export function makeMutableDocument<T extends DocumentData>(
   doc: DocumentSnapshot<T>
 ): FsMutableDocument<T> {
   return {
@@ -25,7 +25,7 @@ export function makeMutableDocument<T extends UnknownObject>(
   };
 }
 
-export function makeMutableDocumentInTransaction<T extends UnknownObject>(
+export function makeMutableDocumentInTransaction<T extends DocumentData>(
   doc: DocumentSnapshot<T>,
   tx: Transaction
 ): FsMutableDocumentInTransaction<T> {

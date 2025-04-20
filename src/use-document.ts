@@ -1,14 +1,15 @@
 import type {
   CollectionReference,
+  DocumentData,
   DocumentReference,
 } from "firebase/firestore";
 import { doc } from "firebase/firestore";
 import { useMemo } from "react";
 import { useDocument_fork, useDocumentOnce_fork } from "./fork/firestore";
 import { makeMutableDocument } from "./make-mutable-document";
-import type { FsMutableDocument, UnknownObject } from "./types.js";
+import type { FsMutableDocument } from "./types.js";
 
-export function useDocument<T extends UnknownObject>(
+export function useDocument<T extends DocumentData>(
   collectionRef: CollectionReference<T>,
   documentId?: string
 ): [FsMutableDocument<T>, false] | [undefined, true] {
@@ -32,7 +33,7 @@ export function useDocument<T extends UnknownObject>(
 }
 
 /** A version of useDocument that doesn't throw when the document doesn't exist. */
-export function useDocumentMaybe<T extends UnknownObject>(
+export function useDocumentMaybe<T extends DocumentData>(
   collectionRef: CollectionReference<T>,
   documentId?: string
 ): [FsMutableDocument<T> | undefined, boolean] {
@@ -47,7 +48,7 @@ export function useDocumentMaybe<T extends UnknownObject>(
   return [document, isLoading];
 }
 
-export function useDocumentData<T extends UnknownObject>(
+export function useDocumentData<T extends DocumentData>(
   collectionRef: CollectionReference<T>,
   documentId?: string
 ): [T, false] | [undefined, true] {
@@ -56,7 +57,7 @@ export function useDocumentData<T extends UnknownObject>(
   return isLoading ? [undefined, true] : [document.data, false];
 }
 
-export function useDocumentOnce<T extends UnknownObject>(
+export function useDocumentOnce<T extends DocumentData>(
   collectionRef: CollectionReference<T>,
   documentId?: string
 ): [FsMutableDocument<T>, false] | [undefined, true] {
@@ -79,7 +80,7 @@ export function useDocumentOnce<T extends UnknownObject>(
   return document ? [document, false] : [undefined, true];
 }
 
-export function useDocumentDataOnce<T extends UnknownObject>(
+export function useDocumentDataOnce<T extends DocumentData>(
   collectionRef: CollectionReference<T>,
   documentId?: string
 ): [T, false] | [undefined, true] {
@@ -88,7 +89,7 @@ export function useDocumentDataOnce<T extends UnknownObject>(
   return isLoading ? [undefined, true] : [document.data, false];
 }
 
-export function useSpecificDocument<T extends UnknownObject>(
+export function useSpecificDocument<T extends DocumentData>(
   documentRef: DocumentReference<T>
 ): [FsMutableDocument<T>, false] | [undefined, true] {
   /**
@@ -109,7 +110,7 @@ export function useSpecificDocument<T extends UnknownObject>(
   return document ? [document, false] : [undefined, true];
 }
 
-export function useSpecificDocumentData<T extends UnknownObject>(
+export function useSpecificDocumentData<T extends DocumentData>(
   documentRef: DocumentReference<T>
 ): [T, false] | [undefined, true] {
   /**

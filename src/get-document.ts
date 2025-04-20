@@ -2,13 +2,13 @@ import {
   doc,
   getDoc,
   type CollectionReference,
+  type DocumentData,
   type Transaction,
 } from "firebase/firestore";
 import { invariant } from "~/utils";
 import { makeMutableDocument } from "./make-mutable-document";
-import type { UnknownObject } from "./types";
 
-export async function getDocument<T extends UnknownObject>(
+export async function getDocument<T extends DocumentData>(
   collectionRef: CollectionReference<T>,
   documentId: string
 ) {
@@ -22,7 +22,7 @@ export async function getDocument<T extends UnknownObject>(
   return makeMutableDocument(snapshot);
 }
 
-export async function getDocumentMaybe<T extends UnknownObject>(
+export async function getDocumentMaybe<T extends DocumentData>(
   collectionRef: CollectionReference<T>,
   documentId: string
 ) {
@@ -33,7 +33,7 @@ export async function getDocumentMaybe<T extends UnknownObject>(
   return makeMutableDocument(snapshot);
 }
 
-export async function getDocumentData<T extends UnknownObject>(
+export async function getDocumentData<T extends DocumentData>(
   collectionRef: CollectionReference<T>,
   documentId: string
 ) {
@@ -47,7 +47,7 @@ export async function getDocumentData<T extends UnknownObject>(
   return docSnap.data();
 }
 
-export async function getDocumentDataMaybe<T extends UnknownObject>(
+export async function getDocumentDataMaybe<T extends DocumentData>(
   collectionRef: CollectionReference<T>,
   documentId: string
 ) {
@@ -58,7 +58,7 @@ export async function getDocumentDataMaybe<T extends UnknownObject>(
   return snapshot.data();
 }
 
-export async function getDocumentInTransaction<T extends UnknownObject>(
+export async function getDocumentInTransaction<T extends DocumentData>(
   transaction: Transaction,
   collectionRef: CollectionReference<T>,
   documentId: string
@@ -73,7 +73,7 @@ export async function getDocumentInTransaction<T extends UnknownObject>(
   return makeMutableDocument(snapshot);
 }
 
-export async function getDocumentInTransactionMaybe<T extends UnknownObject>(
+export async function getDocumentInTransactionMaybe<T extends DocumentData>(
   transaction: Transaction,
   collectionRef: CollectionReference<T>,
   documentId: string
