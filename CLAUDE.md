@@ -1,40 +1,52 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with
+code in this repository.
 
 ## Commands
 
-- **Build**: `pnpm build` (runs tsup + tsc for declarations + tsc-alias)
+- **Build**: `pnpm build` (runs tsdown + tsc for declarations + tsc-alias)
 - **Lint**: `pnpm lint`
-- **Type check**: `pnpm type-check`
-- **Prepare for publish**: `pnpm prepare` (clean, type-check, build)
+- **Type check**: `pnpm check-types`
+- **Prepare for publish**: `pnpm prepare` (clean, check-types, build)
 - **Clean**: `pnpm clean`
 
 No test suite is currently configured.
 
 ## Architecture
 
-This is a React hooks library for typed Firestore document handling. It provides typed abstractions that work with Firebase's web SDK (`firebase/firestore`).
+This is a React hooks library for typed Firestore document handling. It provides
+typed abstractions that work with Firebase's web SDK (`firebase/firestore`).
 
 ### Core Concepts
 
 **Document Types** (`src/types.ts`):
+
 - `FsDocument<T>` - Immutable document with `id` and `data`
-- `FsMutableDocument<T>` - Adds `ref`, `update`, `updateWithPartial`, and `delete` methods
+- `FsMutableDocument<T>` - Adds `ref`, `update`, `updateWithPartial`, and
+  `delete` methods
 - `FsMutableDocumentInTransaction<T>` - Transaction variant
 
 **Main Exports**:
-- `useDocument`, `useDocumentMaybe`, `useDocumentData`, `useDocumentOnce`, `useDocumentDataOnce` - Document hooks
-- `useSpecificDocument`, `useSpecificDocumentData` - Hooks that accept `DocumentReference` directly
+
+- `useDocument`, `useDocumentMaybe`, `useDocumentData`, `useDocumentOnce`,
+  `useDocumentDataOnce` - Document hooks
+- `useSpecificDocument`, `useSpecificDocumentData` - Hooks that accept
+  `DocumentReference` directly
 - `useCollection`, `useCollectionOnce` - Collection query hooks
-- `getDocument*`, `getSpecificDocument*` - Non-hook fetch functions for use with ReactQuery etc.
+- `getDocument*`, `getSpecificDocument*` - Non-hook fetch functions for use with
+  ReactQuery etc.
 - `makeDocument`, `makeMutableDocument` - Factory functions
 
-**Error Handling**: Hooks throw errors instead of returning them (except `*Maybe` variants which return `undefined` for missing documents). This ties loading state to data availability.
+**Error Handling**: Hooks throw errors instead of returning them (except
+`*Maybe` variants which return `undefined` for missing documents). This ties
+loading state to data availability.
 
 ### Forked Code
 
-The `src/fork/firestore/` directory contains forked and modified code from `react-firebase-hooks`. The hooks in the main `src/` directory wrap these fork implementations with stronger typing.
+The `src/fork/firestore/` directory contains forked and modified code from
+`react-firebase-hooks`. The hooks in the main `src/` directory wrap these fork
+implementations with stronger typing.
 
 ## Code Style
 
