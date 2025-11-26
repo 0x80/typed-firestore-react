@@ -5,7 +5,7 @@ code in this repository.
 
 ## Commands
 
-- **Build**: `pnpm build` (runs tsdown + tsc for declarations + tsc-alias)
+- **Build**: `pnpm build` (runs tsdown)
 - **Lint**: `pnpm lint`
 - **Type check**: `pnpm check-types`
 - **Prepare for publish**: `pnpm prepare` (clean, check-types, build)
