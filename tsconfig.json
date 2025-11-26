@@ -1,5 +1,5 @@
 {
-  "extends": "@codecompose/typescript-config/single-library",
+  "extends": "@codecompose/typescript-config/react-library",
   "compilerOptions": {
     "outDir": "./dist" // tsc-alias needs this for now
   }
