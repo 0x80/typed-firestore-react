@@ -2,66 +2,65 @@
   "name": "@typed-firestore/react",
   "version": "1.2.0",
   "description": "Elegant, typed abstractions for Firestore in React applications",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/0x80/typed-firestore-react"
-  },
   "keywords": [
     "firebase",
     "firestore",
     "hooks",
     "react",
-    "typed-firestore",
     "typed",
+    "typed-firestore",
     "typescript"
   ],
-  "type": "module",
-  "main": "./dist/index.mjs",
-  "types": "./dist/index.d.mts",
-  "exports": {
-    ".": "./dist/index.mjs",
-    "./package.json": "./package.json"
+  "license": "Apache-2.0",
+  "author": "Thijs Koerselman",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/0x80/typed-firestore-react"
   },
   "files": [
     "dist",
     "src"
   ],
+  "type": "module",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
   "publishConfig": {
     "access": "public"
   },
-  "packageManager": "pnpm@10.0.0",
-  "engines": {
-    "node": ">=20"
-  },
   "scripts": {
-    "lint": "eslint src",
+    "check-lint": "oxlint -c .oxlintrc.json --import-plugin --type-aware",
     "check-types": "tsc --noEmit",
+    "check-format": "oxfmt --check",
     "build": "tsdown",
     "prepare": "pnpm clean && pnpm check-types && pnpm build",
-    "test": "echo \"No test specified\"",
-    "clean": "del-cli dist tsconfig.tsbuildinfo"
+    "clean": "del-cli dist tsconfig.tsbuildinfo",
+    "format": "oxfmt"
   },
-  "author": "Thijs Koerselman",
-  "license": "Apache-2.0",
   "devDependencies": {
-    "@codecompose/typescript-config": "^1.2.0",
-    "@eslint/js": "^9.18.0",
-    "@testing-library/react-hooks": "^8.0.1",
-    "@types/react": "^19.0.7",
-    "del-cli": "^6.0.0",
-    "eslint": "^9.18.0",
-    "firebase": "^12.6.0",
-    "prettier": "^3.4.2",
-    "prettier-plugin-jsdoc": "^1.3.2",
-    "react": "^19.2.0",
-    "tsdown": "^0.16.7",
-    "typescript": "^5.7.3",
-    "typescript-eslint": "^8.20.0",
-    "vitest": "^3.0.3"
+    "@codecompose/typescript-config": "^3.0.0",
+    "@types/react": "^19.2.14",
+    "del-cli": "^7.0.0",
+    "firebase": "^12.9.0",
+    "oxfmt": "^0.33.0",
+    "oxlint": "^1.48.0",
+    "oxlint-tsgolint": "^0.14.0",
+    "react": "^19.2.4",
+    "tsdown": "^0.20.3",
+    "typescript": "6.0.0-beta"
   },
   "peerDependencies": {
     "firebase": ">=10.0",
     "react": ">=16.8.0"
   },
-  "module": "./dist/index.mjs"
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "pnpm@10.6.5+sha512.cdf928fca20832cd59ec53826492b7dc25dc524d4370b6b4adbf65803d32efaa6c1c88147c0ae4e8d579a6c9eec715757b50d4fa35eea179d868eada4ed043af"
 }

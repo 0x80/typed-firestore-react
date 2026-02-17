@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        command: [check-types, lint, test]
+        command: [check-types, check-lint, check-format]
 
     name: ${{ matrix.command }}
 

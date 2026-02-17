@@ -28,9 +28,7 @@ export function useCollection<T extends DocumentData>(
   const [snapshot, , error] = useCollection_fork(_query);
 
   if (error) {
-    throw new Error(
-      `Failed to execute query on ${collectionRef.path}. Error code: ${error.code}`
-    );
+    throw new Error(`Failed to execute query on ${collectionRef.path}. Error code: ${error.code}`);
   }
 
   const docs = useMemo(() => {
@@ -60,9 +58,7 @@ export function useCollectionOnce<T extends DocumentData>(
   const [snapshot, , error] = useCollectionOnce_fork(_query);
 
   if (error) {
-    throw new Error(
-      `Failed to execute query on ${collectionRef.path}. Error code: ${error.code}`
-    );
+    throw new Error(`Failed to execute query on ${collectionRef.path}. Error code: ${error.code}`);
   }
 
   const docs = useMemo(() => {
