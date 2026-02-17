@@ -10,11 +10,7 @@ import {
   type SnapshotOptions,
 } from "firebase/firestore";
 import { useCallback, useEffect, useMemo } from "react";
-import {
-  useIsFirestoreQueryEqual,
-  useIsMounted,
-  useLoadingValue,
-} from "./helpers";
+import { useIsFirestoreQueryEqual, useIsMounted, useLoadingValue } from "./helpers";
 import type {
   CollectionDataHook,
   CollectionDataOnceHook,
@@ -30,7 +26,7 @@ import type {
 
 export function useCollection_fork<T = DocumentData>(
   query?: Query<T> | null,
-  options?: Options
+  options?: Options,
 ): CollectionHook<T> {
   const { error, loading, reset, setError, setValue, value } = useLoadingValue<
     QuerySnapshot<T>,
@@ -44,12 +40,7 @@ export function useCollection_fork<T = DocumentData>(
       return;
     }
     const unsubscribe = options?.snapshotListenOptions
-      ? onSnapshot(
-          ref.current,
-          options.snapshotListenOptions,
-          setValue,
-          setError
-        )
+      ? onSnapshot(ref.current, options.snapshotListenOptions, setValue, setError)
       : onSnapshot(ref.current, setValue, setError);
 
     return () => {
@@ -62,7 +53,7 @@ export function useCollection_fork<T = DocumentData>(
 
 export function useCollectionOnce_fork<T = DocumentData>(
   query?: Query<T> | null,
-  options?: OnceOptions
+  options?: OnceOptions,
 ): CollectionOnceHook<T> {
   const { error, loading, reset, setError, setValue, value } = useLoadingValue<
     QuerySnapshot<T>,
@@ -71,32 +62,26 @@ export function useCollectionOnce_fork<T = DocumentData>(
   const isMounted = useIsMounted();
   const ref = useIsFirestoreQueryEqual<Query<T>>(query, reset);
 
-  const loadData = useCallback(
-    async (query?: Query<T> | null, options?: Options & OnceOptions) => {
-      if (!query) {
-        setValue(undefined);
-        return;
-      }
-      const get = getDocsFnFromGetOptions(options?.getOptions);
+  const loadData = useCallback(async (query?: Query<T> | null, options?: Options & OnceOptions) => {
+    if (!query) {
+      setValue(undefined);
+      return;
+    }
+    const get = getDocsFnFromGetOptions(options?.getOptions);
 
-      try {
-        const result = await get(query);
-        if (isMounted) {
-          setValue(result);
-        }
-      } catch (error) {
-        if (isMounted) {
-          setError(error as FirestoreError);
-        }
+    try {
+      const result = await get(query);
+      if (isMounted) {
+        setValue(result);
       }
-    },
-    []
-  );
+    } catch (error) {
+      if (isMounted) {
+        setError(error as FirestoreError);
+      }
+    }
+  }, []);
 
-  const reloadData = useCallback(
-    () => loadData(ref.current, options),
-    [loadData, ref.current]
-  );
+  const reloadData = useCallback(() => loadData(ref.current, options), [loadData, ref.current]);
 
   useEffect(() => {
     loadData(ref.current, options).catch(setError);
@@ -107,14 +92,14 @@ export function useCollectionOnce_fork<T = DocumentData>(
 
 export function useCollectionData_fork<T = DocumentData>(
   query?: Query<T> | null,
-  options?: DataOptions & InitialValueOptions<T[]>
+  options?: DataOptions & InitialValueOptions<T[]>,
 ): CollectionDataHook<T> {
   const [snapshots, loading, error] = useCollection_fork<T>(query, options);
 
   const values = getValuesFromSnapshots<T>(
     snapshots,
     options?.snapshotOptions,
-    options?.initialValue
+    options?.initialValue,
   );
 
   return [values, loading, error, snapshots];
@@ -122,17 +107,14 @@ export function useCollectionData_fork<T = DocumentData>(
 
 export function useCollectionDataOnce_fork<T = DocumentData>(
   query?: Query<T> | null,
-  options?: OnceDataOptions & InitialValueOptions<T[]>
+  options?: OnceDataOptions & InitialValueOptions<T[]>,
 ): CollectionDataOnceHook<T> {
-  const [snapshots, loading, error, reloadData] = useCollectionOnce_fork<T>(
-    query,
-    options
-  );
+  const [snapshots, loading, error, reloadData] = useCollectionOnce_fork<T>(query, options);
 
   const values = getValuesFromSnapshots<T>(
     snapshots,
     options?.snapshotOptions,
-    options?.initialValue
+    options?.initialValue,
   );
 
   return [values, loading, error, snapshots, reloadData];
@@ -141,17 +123,15 @@ export function useCollectionDataOnce_fork<T = DocumentData>(
 const getValuesFromSnapshots = <T>(
   snapshots: QuerySnapshot<T> | undefined,
   options?: SnapshotOptions,
-  initialValue?: T[]
+  initialValue?: T[],
 ): T[] | undefined => {
   return useMemo(
     () => snapshots?.docs.map((doc) => doc.data(options)) ?? initialValue,
-    [snapshots, options]
+    [snapshots, options],
   );
 };
 
-const getDocsFnFromGetOptions = (
-  { source }: GetOptions = { source: "default" }
-) => {
+const getDocsFnFromGetOptions = ({ source }: GetOptions = { source: "default" }) => {
   switch (source) {
     default:
     case "default":

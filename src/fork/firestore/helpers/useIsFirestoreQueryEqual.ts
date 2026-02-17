@@ -4,7 +4,7 @@ import { type RefHook, useComparatorRef } from "./refHooks";
 
 export const useIsFirestoreQueryEqual = <T extends Query<unknown>>(
   value: T | null | undefined,
-  onChange?: () => void
+  onChange?: () => void,
 ): RefHook<T | null | undefined> => {
   return useComparatorRef(value, isQueryEqual, onChange);
 };

@@ -7,5 +7,7 @@ export default defineConfig({
   sourcemap: true,
   dts: true,
   treeshake: true,
-  exports: true,
+  unbundle: true,
+  exports: false,
+  logLevel: "error",
 });

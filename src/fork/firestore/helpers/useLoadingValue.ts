@@ -29,10 +29,7 @@ const defaultState = <T, E>(defaultValue?: T): ReducerState<T, E> => {
 
 const reducer =
   <T, E>() =>
-  (
-    state: ReducerState<T, E>,
-    action: ReducerAction<T, E>
-  ): ReducerState<T, E> => {
+  (state: ReducerState<T, E>, action: ReducerAction<T, E>): ReducerState<T, E> => {
     switch (action.type) {
       case "error":
         return {
@@ -55,14 +52,9 @@ const reducer =
     }
   };
 
-export function useLoadingValue<T, E>(
-  getDefaultValue?: () => T
-): LoadingValue<T, E> {
+export function useLoadingValue<T, E>(getDefaultValue?: () => T): LoadingValue<T, E> {
   const defaultValue = getDefaultValue ? getDefaultValue() : undefined;
-  const [state, dispatch] = useReducer(
-    reducer<T, E>(),
-    defaultState(defaultValue)
-  );
+  const [state, dispatch] = useReducer(reducer<T, E>(), defaultState(defaultValue));
 
   const reset = useCallback(() => {
     const defaultValue = getDefaultValue ? getDefaultValue() : undefined;
@@ -86,6 +78,6 @@ export function useLoadingValue<T, E>(
       setValue,
       value: state.value,
     }),
-    [state.error, state.loading, reset, setError, setValue, state.value]
+    [state.error, state.loading, reset, setError, setValue, state.value],
   );
 }

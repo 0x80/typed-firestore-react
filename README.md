@@ -45,10 +45,7 @@ export const refs = {
   books: collection(db, "books") as CollectionReference<Book>,
   /** For sub-collections you could use a function that returns the reference. */
   userWishlist: (userId: string) =>
-    collection(
-      db,
-      `users/${userId}/wishlist`
-    ) as CollectionReference<WishlistItem>,
+    collection(db, `users/${userId}/wishlist`) as CollectionReference<WishlistItem>,
 
   /** This object never needs to change */
 } as const;

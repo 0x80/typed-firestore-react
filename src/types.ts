@@ -1,8 +1,4 @@
-import type {
-  DocumentReference,
-  Transaction,
-  UpdateData,
-} from "firebase/firestore";
+import type { DocumentReference, Transaction, UpdateData } from "firebase/firestore";
 
 /**
  * A simple serialize-able document type. Use this when defining functions that

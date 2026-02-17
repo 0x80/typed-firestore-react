@@ -1,8 +1,4 @@
-import type {
-  CollectionReference,
-  DocumentData,
-  DocumentReference,
-} from "firebase/firestore";
+import type { CollectionReference, DocumentData, DocumentReference } from "firebase/firestore";
 import { doc } from "firebase/firestore";
 import { useMemo } from "react";
 import { useDocument_fork, useDocumentOnce_fork } from "./fork/firestore";
@@ -11,7 +7,7 @@ import type { FsMutableDocument } from "./types.js";
 
 export function useDocument<T extends DocumentData>(
   collectionRef: CollectionReference<T>,
-  documentId?: string
+  documentId?: string,
 ): [FsMutableDocument<T>, false] | [undefined, true] {
   const ref = documentId ? doc(collectionRef, documentId) : undefined;
   /**
@@ -26,7 +22,7 @@ export function useDocument<T extends DocumentData>(
 
   const document = useMemo(
     () => (snapshot?.exists() ? makeMutableDocument(snapshot) : undefined),
-    [snapshot]
+    [snapshot],
   );
 
   return document ? [document, false] : [undefined, true];
@@ -35,14 +31,14 @@ export function useDocument<T extends DocumentData>(
 /** A version of useDocument that doesn't throw when the document doesn't exist. */
 export function useDocumentMaybe<T extends DocumentData>(
   collectionRef: CollectionReference<T>,
-  documentId?: string
+  documentId?: string,
 ): [FsMutableDocument<T> | undefined, boolean] {
   const ref = documentId ? doc(collectionRef, documentId) : undefined;
   const [snapshot, isLoading] = useDocument_fork(ref);
 
   const document = useMemo(
     () => (snapshot?.exists() ? makeMutableDocument(snapshot) : undefined),
-    [snapshot]
+    [snapshot],
   );
 
   return [document, isLoading];
@@ -50,7 +46,7 @@ export function useDocumentMaybe<T extends DocumentData>(
 
 export function useDocumentData<T extends DocumentData>(
   collectionRef: CollectionReference<T>,
-  documentId?: string
+  documentId?: string,
 ): [T, false] | [undefined, true] {
   const [document, isLoading] = useDocument(collectionRef, documentId);
 
@@ -59,7 +55,7 @@ export function useDocumentData<T extends DocumentData>(
 
 export function useDocumentOnce<T extends DocumentData>(
   collectionRef: CollectionReference<T>,
-  documentId?: string
+  documentId?: string,
 ): [FsMutableDocument<T>, false] | [undefined, true] {
   const ref = documentId ? doc(collectionRef, documentId) : undefined;
   /**
@@ -74,7 +70,7 @@ export function useDocumentOnce<T extends DocumentData>(
 
   const document = useMemo(
     () => (snapshot?.exists() ? makeMutableDocument(snapshot) : undefined),
-    [snapshot]
+    [snapshot],
   );
 
   return document ? [document, false] : [undefined, true];
@@ -82,7 +78,7 @@ export function useDocumentOnce<T extends DocumentData>(
 
 export function useDocumentDataOnce<T extends DocumentData>(
   collectionRef: CollectionReference<T>,
-  documentId?: string
+  documentId?: string,
 ): [T, false] | [undefined, true] {
   const [document, isLoading] = useDocumentOnce(collectionRef, documentId);
 
@@ -90,7 +86,7 @@ export function useDocumentDataOnce<T extends DocumentData>(
 }
 
 export function useSpecificDocument<T extends DocumentData>(
-  documentRef: DocumentReference<T>
+  documentRef: DocumentReference<T>,
 ): [FsMutableDocument<T>, false] | [undefined, true] {
   /**
    * We do not need the loading state really. If there is no data, and there is
@@ -104,14 +100,14 @@ export function useSpecificDocument<T extends DocumentData>(
 
   const document = useMemo(
     () => (snapshot?.exists() ? makeMutableDocument(snapshot) : undefined),
-    [snapshot]
+    [snapshot],
   );
 
   return document ? [document, false] : [undefined, true];
 }
 
 export function useSpecificDocumentData<T extends DocumentData>(
-  documentRef: DocumentReference<T>
+  documentRef: DocumentReference<T>,
 ): [T, false] | [undefined, true] {
   /**
    * We do not need the loading state really. If there is no data, and there is
@@ -123,10 +119,7 @@ export function useSpecificDocumentData<T extends DocumentData>(
     throw error;
   }
 
-  const data = useMemo(
-    () => (snapshot?.exists() ? snapshot.data() : undefined),
-    [snapshot]
-  );
+  const data = useMemo(() => (snapshot?.exists() ? snapshot.data() : undefined), [snapshot]);
 
   return data ? [data, false] : [undefined, true];
 }
