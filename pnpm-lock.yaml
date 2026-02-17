@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@codecompose/typescript-config':
-        specifier: ^2.3.0
-        version: 2.3.0
+        specifier: ^3.0.0
+        version: 3.0.0(typescript@6.0.0-beta)
       '@eslint/js':
         specifier: ^9.18.0
         version: 9.18.0
@@ -82,8 +82,10 @@ packages:
     resolution: {integrity: sha512-qQ5m48eI/MFLQ5PxQj4PFaprjyCTLI37ElWMmNs0K8Lk3dVeOdNpB3ks8jc7yM5CDmVC73eMVk/trk3fgmrUpA==}
     engines: {node: '>=6.9.0'}
 
-  '@codecompose/typescript-config@2.3.0':
-    resolution: {integrity: sha512-qjEhZFg+tSb2RG4H6XKJOBxSws18iMkeIqlFXGvOQsE5Dw4RQIcmUaZNw08ZVD32D5ovwJcVzNiw6XiM07kS3w==}
+  '@codecompose/typescript-config@3.0.0':
+    resolution: {integrity: sha512-CkMXAK8X2E4DUTVBTs90x/vPsZfULP38Y1UQNYLgzy3A+95ygpsTRHYwJrlrqcR2lElTeyAYONsvHPVxxfojcQ==}
+    peerDependencies:
+      typescript: '>=6.0.0'
 
   '@emnapi/core@1.7.1':
     resolution: {integrity: sha512-o1uhUASyo921r2XtHYOHy7gdkGLge8ghBEQHMWmyJFoXlpU58kIrhhN3w26lpQb6dspetweapMn2CSNwQ8I4wg==}
@@ -1860,7 +1862,9 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
 
-  '@codecompose/typescript-config@2.3.0': {}
+  '@codecompose/typescript-config@3.0.0(typescript@6.0.0-beta)':
+    dependencies:
+      typescript: 6.0.0-beta
 
   '@emnapi/core@1.7.1':
     dependencies:

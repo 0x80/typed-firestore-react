@@ -44,7 +44,7 @@
   "author": "Thijs Koerselman",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@codecompose/typescript-config": "^2.3.0",
+    "@codecompose/typescript-config": "^3.0.0",
     "@eslint/js": "^9.18.0",
     "@testing-library/react-hooks": "^8.0.1",
     "@types/react": "^19.0.7",
