@@ -6,8 +6,10 @@ code in this repository.
 ## Commands
 
 - **Build**: `pnpm build` (runs tsdown)
-- **Lint**: `pnpm lint`
+- **Lint**: `pnpm check-lint` (runs oxlint)
 - **Type check**: `pnpm check-types`
+- **Format check**: `pnpm check-format` (runs oxfmt --check)
+- **Format**: `pnpm format` (runs oxfmt)
 - **Prepare for publish**: `pnpm prepare` (clean, check-types, build)
 - **Clean**: `pnpm clean`
 
@@ -50,6 +52,6 @@ implementations with stronger typing.
 
 ## Code Style
 
-- Use `type` keyword for type definitions (enforced by ESLint rule)
+- Use `type` keyword for type definitions (enforced by oxlint rule)
 - Non-null assertions are allowed
 - Peer dependencies: `firebase >=10.0`, `react >=16.8.0`
