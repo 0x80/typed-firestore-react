@@ -34,7 +34,11 @@ export function useDocumentMaybe<T extends DocumentData>(
   documentId?: string,
 ): [FsMutableDocument<T> | undefined, boolean] {
   const ref = documentId ? doc(collectionRef, documentId) : undefined;
-  const [snapshot, isLoading] = useDocument_fork(ref);
+  const [snapshot, isLoading, error] = useDocument_fork(ref);
+
+  if (error) {
+    throw error;
+  }
 
   const document = useMemo(
     () => (snapshot?.exists() ? makeMutableDocument(snapshot) : undefined),

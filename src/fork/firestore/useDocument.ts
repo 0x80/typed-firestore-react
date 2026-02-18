@@ -72,11 +72,11 @@ export function useDocumentOnce_fork<T = DocumentData>(
 
       try {
         const result = await get(reference);
-        if (isMounted) {
+        if (isMounted.current) {
           setValue(result);
         }
       } catch (error) {
-        if (isMounted) {
+        if (isMounted.current) {
           setError(error as FirestoreError);
         }
       }
