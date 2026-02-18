@@ -40,6 +40,7 @@
     "check-format": "oxfmt --check",
     "build": "tsdown",
     "prepare": "pnpm clean && pnpm check-types && pnpm build",
+    "test": "vitest run",
     "clean": "del-cli dist tsconfig.tsbuildinfo",
     "format": "oxfmt"
   },
@@ -53,7 +54,8 @@
     "oxlint-tsgolint": "^0.14.0",
     "react": "^19.2.4",
     "tsdown": "^0.20.3",
-    "typescript": "6.0.0-beta"
+    "typescript": "6.0.0-beta",
+    "vitest": "^4.0.18"
   },
   "peerDependencies": {
     "firebase": ">=10.0",

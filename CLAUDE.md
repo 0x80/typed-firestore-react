@@ -11,9 +11,8 @@ code in this repository.
 - **Format check**: `pnpm check-format` (runs oxfmt --check)
 - **Format**: `pnpm format` (runs oxfmt)
 - **Prepare for publish**: `pnpm prepare` (clean, check-types, build)
+- **Test**: `pnpm test` (runs vitest)
 - **Clean**: `pnpm clean`
-
-No test suite is currently configured.
 
 ## Architecture
 
