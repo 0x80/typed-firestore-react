@@ -112,9 +112,13 @@ jobs:
         run: |
           npm publish --provenance --tag ${{ steps.version.outputs.dist_tag }}
 
-      - name: Push commit and tag
+      - name: Push version commit
         if: ${{ inputs.dry_run == false }}
-        run: git push origin HEAD --follow-tags
+        run: git push origin HEAD
+
+      - name: Push version tag
+        if: ${{ inputs.dry_run == false }}
+        run: git push origin ${{ steps.version.outputs.tag }}
 
       - name: Create GitHub Release
         if: ${{ inputs.dry_run == false }}
