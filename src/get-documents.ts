@@ -1,5 +1,6 @@
 import {
   getDocs,
+  limit,
   query,
   type CollectionReference,
   type DocumentData,
@@ -12,7 +13,9 @@ export async function getDocuments<T extends DocumentData>(
   ...queryConstraints: QueryConstraint[]
 ) {
   const _query =
-    queryConstraints.length === 0 ? collectionRef : query(collectionRef, ...queryConstraints);
+    queryConstraints.length === 0
+      ? query(collectionRef, limit(500))
+      : query(collectionRef, ...queryConstraints);
 
   const snapshot = await getDocs(_query);
 
@@ -24,7 +27,9 @@ export async function getDocumentsData<T extends DocumentData>(
   ...queryConstraints: QueryConstraint[]
 ) {
   const _query =
-    queryConstraints.length === 0 ? collectionRef : query(collectionRef, ...queryConstraints);
+    queryConstraints.length === 0
+      ? query(collectionRef, limit(500))
+      : query(collectionRef, ...queryConstraints);
 
   const snapshot = await getDocs(_query);
 
