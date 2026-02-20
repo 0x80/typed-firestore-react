@@ -6,6 +6,7 @@ import {
   type CollectionReference,
   type DocumentData,
   type DocumentReference,
+  type PartialWithFieldValue,
   type SetOptions,
   type UpdateData,
   type WithFieldValue,
@@ -15,17 +16,43 @@ export function setDocument<T extends DocumentData>(
   collectionRef: CollectionReference<T>,
   documentId: string,
   data: WithFieldValue<T>,
+): Promise<void>;
+export function setDocument<T extends DocumentData>(
+  collectionRef: CollectionReference<T>,
+  documentId: string,
+  data: PartialWithFieldValue<T>,
+  options: SetOptions,
+): Promise<void>;
+export function setDocument<T extends DocumentData>(
+  collectionRef: CollectionReference<T>,
+  documentId: string,
+  data: WithFieldValue<T>,
   options?: SetOptions,
 ): Promise<void> {
-  return setDoc(doc(collectionRef, documentId), data, options ?? {});
+  if (options) {
+    return setDoc(doc(collectionRef, documentId), data as PartialWithFieldValue<T>, options);
+  }
+  return setDoc(doc(collectionRef, documentId), data);
 }
 
 export function setSpecificDocument<T extends DocumentData>(
   documentRef: DocumentReference<T>,
   data: WithFieldValue<T>,
+): Promise<void>;
+export function setSpecificDocument<T extends DocumentData>(
+  documentRef: DocumentReference<T>,
+  data: PartialWithFieldValue<T>,
+  options: SetOptions,
+): Promise<void>;
+export function setSpecificDocument<T extends DocumentData>(
+  documentRef: DocumentReference<T>,
+  data: WithFieldValue<T>,
   options?: SetOptions,
 ): Promise<void> {
-  return setDoc(documentRef, data, options ?? {});
+  if (options) {
+    return setDoc(documentRef, data as PartialWithFieldValue<T>, options);
+  }
+  return setDoc(documentRef, data);
 }
 
 export function updateDocument<T extends DocumentData>(
