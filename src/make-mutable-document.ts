@@ -6,7 +6,7 @@ import {
   type Transaction,
   type UpdateData,
 } from "firebase/firestore";
-import type { FsMutableDocument, FsMutableDocumentInTransaction } from "~/types";
+import type { FsMutableDocument, FsMutableDocumentTx } from "~/types";
 
 export function makeMutableDocument<T extends DocumentData>(
   doc: DocumentSnapshot<T>,
@@ -25,10 +25,10 @@ export function makeMutableDocument<T extends DocumentData>(
   };
 }
 
-export function makeMutableDocumentInTransaction<T extends DocumentData>(
+export function makeMutableDocumentTx<T extends DocumentData>(
   doc: DocumentSnapshot<T>,
   tx: Transaction,
-): FsMutableDocumentInTransaction<T> {
+): FsMutableDocumentTx<T> {
   const data = doc.data();
   if (!data) {
     throw new Error(`Document ${doc.ref.path} exists but has no data`);
@@ -42,3 +42,6 @@ export function makeMutableDocumentInTransaction<T extends DocumentData>(
     delete: () => tx.delete(doc.ref),
   };
 }
+
+/** @deprecated Use `makeMutableDocumentTx` instead */
+export const makeMutableDocumentInTransaction = makeMutableDocumentTx;
