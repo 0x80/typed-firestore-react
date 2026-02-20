@@ -23,7 +23,7 @@ export type FsMutableDocument<T> = Readonly<{
   FsDocument<T>;
 
 export type FsMutableDocumentTx<T> = Readonly<{
-  ref: DocumentReference;
+  ref: DocumentReference<T>;
   update: (data: UpdateData<T>) => Transaction;
   /**
    * The Firestore `UpdateData` type which allows the use of FieldValue
