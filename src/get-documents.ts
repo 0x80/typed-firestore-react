@@ -12,9 +12,7 @@ export async function getDocuments<T extends DocumentData>(
   ...queryConstraints: QueryConstraint[]
 ) {
   const _query =
-    queryConstraints.length === 0
-      ? collectionRef
-      : query(collectionRef, ...queryConstraints);
+    queryConstraints.length === 0 ? collectionRef : query(collectionRef, ...queryConstraints);
 
   const snapshot = await getDocs(_query);
 
@@ -26,9 +24,7 @@ export async function getDocumentsData<T extends DocumentData>(
   ...queryConstraints: QueryConstraint[]
 ) {
   const _query =
-    queryConstraints.length === 0
-      ? collectionRef
-      : query(collectionRef, ...queryConstraints);
+    queryConstraints.length === 0 ? collectionRef : query(collectionRef, ...queryConstraints);
 
   const snapshot = await getDocs(_query);
 
