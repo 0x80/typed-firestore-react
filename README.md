@@ -113,16 +113,17 @@ const { data, isError } = useQuery({
 });
 ```
 
-| Function                           | Description                                                    |
-| ---------------------------------- | -------------------------------------------------------------- |
-| `getDocument`                      | Fetch a document                                               |
-| `getDocumentData`                  | Fetch only the data part of a document                         |
-| `getDocumentMaybe`                 | Fetch a document that might not exist                          |
-| `getDocumentInTransaction`         | Fetch a document as part of a transaction                      |
-| `getDocumentInTransactionMaybe`    | Fetch a document that might not exist as part of a transaction |
-| `getSpecificDocument`              | Fetch a specific document                                      |
-| `getSpecificDocumentData`          | Fetch only the data part of a specific document                |
-| `getSpecificDocumentInTransaction` | Fetch a specific document as part of a transaction             |
+| Function                  | Description                                                    |
+| ------------------------- | -------------------------------------------------------------- |
+| `getDocument`             | Fetch a document                                               |
+| `getDocumentData`         | Fetch only the data part of a document                         |
+| `getDocumentMaybe`        | Fetch a document that might not exist                          |
+| `getDocumentDataMaybe`    | Fetch only the data part of a document that might not exist    |
+| `getDocumentTx`           | Fetch a document as part of a transaction                      |
+| `getDocumentMaybeTx`      | Fetch a document that might not exist as part of a transaction |
+| `getSpecificDocument`     | Fetch a specific document                                      |
+| `getSpecificDocumentData` | Fetch only the data part of a specific document                |
+| `getSpecificDocumentTx`   | Fetch a specific document as part of a transaction             |
 
 ### Write Functions
 

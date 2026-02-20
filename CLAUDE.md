@@ -27,7 +27,7 @@ typed abstractions that work with Firebase's web SDK (`firebase/firestore`).
 - `FsDocument<T>` - Immutable document with `id` and `data`
 - `FsMutableDocument<T>` - Adds `ref`, `update`, `updateWithPartial`, and
   `delete` methods
-- `FsMutableDocumentInTransaction<T>` - Transaction variant
+- `FsMutableDocumentTx<T>` - Transaction variant
 
 **Main Exports**:
 
