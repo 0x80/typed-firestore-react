@@ -38,6 +38,9 @@ typed abstractions that work with Firebase's web SDK (`firebase/firestore`).
 - `useCollection`, `useCollectionOnce` - Collection query hooks
 - `getDocument*`, `getSpecificDocument*` - Non-hook fetch functions for use with
   ReactQuery etc.
+- `setDocument`, `setSpecificDocument` - Create or overwrite documents
+- `updateDocument`, `updateSpecificDocument` - Partially update documents
+- `deleteDocument`, `deleteSpecificDocument` - Delete documents
 - `makeDocument`, `makeMutableDocument` - Factory functions
 
 **Error Handling**: Hooks throw errors instead of returning them (except
