@@ -26,13 +26,13 @@ export function setDocument<T extends DocumentData>(
 export function setDocument<T extends DocumentData>(
   collectionRef: CollectionReference<T>,
   documentId: string,
-  data: WithFieldValue<T>,
+  data: WithFieldValue<T> | PartialWithFieldValue<T>,
   options?: SetOptions,
 ): Promise<void> {
   if (options) {
     return setDoc(doc(collectionRef, documentId), data as PartialWithFieldValue<T>, options);
   }
-  return setDoc(doc(collectionRef, documentId), data);
+  return setDoc(doc(collectionRef, documentId), data as WithFieldValue<T>);
 }
 
 export function setSpecificDocument<T extends DocumentData>(
@@ -46,13 +46,13 @@ export function setSpecificDocument<T extends DocumentData>(
 ): Promise<void>;
 export function setSpecificDocument<T extends DocumentData>(
   documentRef: DocumentReference<T>,
-  data: WithFieldValue<T>,
+  data: WithFieldValue<T> | PartialWithFieldValue<T>,
   options?: SetOptions,
 ): Promise<void> {
   if (options) {
     return setDoc(documentRef, data as PartialWithFieldValue<T>, options);
   }
-  return setDoc(documentRef, data);
+  return setDoc(documentRef, data as WithFieldValue<T>);
 }
 
 export function updateDocument<T extends DocumentData>(
