@@ -29,15 +29,13 @@ describe("makeDocument", () => {
   });
 
   it("throws when data() returns undefined", () => {
-    const snapshot = mockSnapshot({
+    const snapshot = mockSnapshot<Record<string, unknown>>({
       id: "doc1",
       data: undefined,
       path: "users/doc1",
     });
 
-    expect(() => makeDocument(snapshot)).toThrow(
-      "Document users/doc1 exists but has no data",
-    );
+    expect(() => makeDocument(snapshot)).toThrow("Document users/doc1 exists but has no data");
   });
 });
 
@@ -60,7 +58,7 @@ describe("makeMutableDocument", () => {
   });
 
   it("throws when data() returns undefined", () => {
-    const snapshot = mockSnapshot({
+    const snapshot = mockSnapshot<Record<string, unknown>>({
       id: "doc2",
       data: undefined,
       path: "users/doc2",
@@ -93,7 +91,7 @@ describe("makeMutableDocumentInTransaction", () => {
   });
 
   it("throws when data() returns undefined", () => {
-    const snapshot = mockSnapshot({
+    const snapshot = mockSnapshot<Record<string, unknown>>({
       id: "doc3",
       data: undefined,
       path: "users/doc3",
